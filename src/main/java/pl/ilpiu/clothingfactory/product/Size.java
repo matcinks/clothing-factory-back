@@ -1,15 +1,15 @@
-package pl.ilpiu.clothingfactory.material;
+package pl.ilpiu.clothingfactory.product;
 
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "compositions")
-public class Composition {
-
+@Table(name = "sizes")
+public class Size {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,11 +17,10 @@ public class Composition {
     @NotNull
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private RawMaterial rawMaterial;
+    private Date createdAt;
 
-    @NotNull
-    private Double percentage;
-
+    @PrePersist
+    public void createdAt(){
+        this.createdAt = new Date();
+    }
 }

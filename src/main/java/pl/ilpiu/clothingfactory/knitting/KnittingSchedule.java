@@ -1,22 +1,22 @@
-package pl.ilpiu.clothingfactory.cutting;
+package pl.ilpiu.clothingfactory.knitting;
 
-import jdk.jshell.Snippet;
 import lombok.Data;
 import pl.ilpiu.clothingfactory.common.Status;
 import pl.ilpiu.clothingfactory.product.Colour;
+import pl.ilpiu.clothingfactory.knitting.KnittingDevice;
 import pl.ilpiu.clothingfactory.product.Product;
-import pl.ilpiu.clothingfactory.product.Size;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "cutting_schedules")
-class CuttingSchedule {
+@Table(name = "knitting_schedules")
+class KnittingSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +26,15 @@ class CuttingSchedule {
     private Product product;
 
     @ManyToOne
-    private Colour colour;
+    private KnittingDevice knittingDevice;
 
     @ManyToOne
-    private Size size;
+    private Colour colour;
 
-    @NotNull
+    @NotNull(message = "Knitting schedule entry should have positive amount.")
     private Integer amount;
 
+    // TODO check default status
     @Enumerated(EnumType.STRING)
     private Status status = Status.ZAPLANOWANE;
 
@@ -43,7 +44,10 @@ class CuttingSchedule {
     private Integer priority;
     private Date scheduledOn;
 
-    private void scheduledOn(){
+    @PrePersist
+    public void scheduledOn(){
         this.scheduledOn = new Date();
     }
+
+
 }

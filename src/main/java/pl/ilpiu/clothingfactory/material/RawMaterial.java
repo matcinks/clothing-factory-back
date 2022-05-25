@@ -1,4 +1,7 @@
 package pl.ilpiu.clothingfactory.material;
 
-class RawMaterial {
+
+// TODO add more raw materials
+public enum RawMaterial {
+    BAWELNA, ELASTAN, AKRYL, WISKOZA;
 }
