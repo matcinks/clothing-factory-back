@@ -14,14 +14,11 @@ public class Composition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private String name;
-
     @Enumerated(EnumType.STRING)
     @NotNull
     private RawMaterial rawMaterial;
 
     @NotNull
-    private Double percentage;
+    private Integer percentage;
 
 }

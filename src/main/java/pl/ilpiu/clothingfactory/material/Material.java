@@ -24,7 +24,7 @@ public class Material {
 
     private String additionalDescription;
 
-    @ManyToMany(targetEntity = Composition.class)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "materials_compositions")
     @Size(min = 1, message = "Produkt musi sie skladac z minimum jednego skladnika.")
     private List<Composition> composition;
@@ -41,4 +41,5 @@ public class Material {
     void createdAt() {
         this.createdAt = new Date();
     }
+
 }
