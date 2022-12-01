@@ -38,9 +38,10 @@ class ColourService {
                 .orElseThrow(() -> new ObjectNotFoundInDBException("Colour with id: " + id + " was not found."));
     }
 
-    // TODO walidacja dla pustej listy
     public List <Colour> getColoursById(List<Long> idList) {
-        return colourRepository.findAllByIdIn(idList);
+        List <Colour> coloursList = colourRepository.findAllByIdIn(idList);
+        if (coloursList.isEmpty()) throw new ObjectNotFoundInDBException("Nie znaleziono wybranych kolorów w bazie danych.");
+        return coloursList;
     }
 
     void updateColour(Long id, Colour updatedInfo) {

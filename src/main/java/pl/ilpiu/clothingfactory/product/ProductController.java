@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-//@CrossOrigin
 @RequestMapping("/product")
 class ProductController {
 
@@ -18,9 +17,15 @@ class ProductController {
 
     private final ProductService productService;
 
+//    @GetMapping(params = {"!sort", "!page", "!size"})
+//    @ResponseBody
+//    List<Product> getAllProducts() {
+//        return productService.getAllProducts();
+//    }
+
     @GetMapping(params = {"!sort", "!page", "!size"})
     @ResponseBody
-    List<Product> getAllProducts() {
+    List<ProductBasicDetailsDTO> getAllProducts() {
         return productService.getAllProducts();
     }
 
@@ -55,13 +60,5 @@ class ProductController {
     void updateProduct(@PathVariable Long id, @Valid @RequestBody Product updatedInfo){
         productService.updateProduct(id, updatedInfo);
     }
-
-    @GetMapping("/price/{id}")
-    @ResponseBody
-    BigDecimal getPrice(@PathVariable Long id){
-        return productService.getPriceByProductId(id);
-    }
-
-
 
 }

@@ -20,7 +20,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
-        http.csrf().disable();
+
 //        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // TODO usunac ponizszy fragment
@@ -36,8 +36,8 @@ public class SecurityConfig {
 //        http
 //                .authorizeRequests((authz) -> authz
 //                        .anyRequest().permitAll());
-//        http
-//                .csrf().disable();
+        http
+                .csrf().disable();
 //
 //        http.cors();
         http.cors(withDefaults());
@@ -55,7 +55,6 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-
     }
 
 }

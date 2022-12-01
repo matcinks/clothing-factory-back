@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 import pl.ilpiu.clothingfactory.exception.MaterialCompositionExceededException;
 import pl.ilpiu.clothingfactory.exception.ObjectNotFoundInDBException;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +46,19 @@ public class MaterialService {
     public Material getMaterialById(Long id) {
         return materialRepository
                 .findById(id)
-                .orElseThrow(() -> new ObjectNotFoundInDBException("Material with id: " + id + " was not found."));
+                .orElseThrow(() -> new ObjectNotFoundInDBException("W bazie danych nie znaleziono materiału o numerze id: " + id));
+    }
+
+        public List<Material> getMaterialsById(List<Long> idList) {
+        // przypsanie materiałów z repozytorium na podstawie przekazanych numerów id
+        List <Material> materialsList = materialRepository.findAllByIdIn(idList);
+
+        // sprawdzenie, czy wszystke przekazane numery id są w bazie
+        List <Long> materialsListId = materialsList.stream().map(Material::getId).toList();
+        List <Long> notFoundIds = idList.stream().filter(id -> !materialsListId.contains(id)).toList();
+            if (!notFoundIds.isEmpty()) throw new ObjectNotFoundInDBException("W bazie danych nie znaleziono materiałów o numerach id:  "
+                    + notFoundIds.stream().map(Object::toString).collect(Collectors.joining(", ")));
+        return materialsList;
     }
 
     void updateMaterial(Long id, Material updatedInfo) {

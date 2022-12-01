@@ -8,5 +8,4 @@ import java.util.List;
 @Repository
 public interface ColourRepository extends JpaRepository<Colour, Long> {
     List<Colour> findAllByIdIn (List <Long> id);
-//    List<Colour> findAllByIdIn
 }

@@ -33,7 +33,7 @@ public class CustomExceptionResponse {
 
     public CustomExceptionResponse(MethodArgumentNotValidException ex) {
         this.errorCode = "400";
-        this.message = ex.toString();
+        this.message = ex.getFieldError().getDefaultMessage();
         this.httpStatus = HttpStatus.BAD_REQUEST;
     }
 }

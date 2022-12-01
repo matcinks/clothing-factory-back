@@ -3,17 +3,17 @@ package pl.ilpiu.clothingfactory.product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import pl.ilpiu.clothingfactory.exception.ObjectNotFoundInDBException;
+import pl.ilpiu.clothingfactory.material.Material;
 import pl.ilpiu.clothingfactory.material.MaterialService;
 import pl.ilpiu.clothingfactory.product.colour.Colour;
 import pl.ilpiu.clothingfactory.product.colour.ColourService;
-import pl.ilpiu.clothingfactory.product.price.Price;
 import pl.ilpiu.clothingfactory.product.size.Size;
 import pl.ilpiu.clothingfactory.product.size.SizeService;
 
-import java.math.BigDecimal;
-import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,11 +24,20 @@ class ProductService {
     private final ColourService colourService;
     private final SizeService sizeService;
 
+//    List<Product> getAllProducts() {
+//        return productRepository
+//                .findAll();
+//    }
 
-    List<Product> getAllProducts() {
-        return productRepository
-                .findAll();
+    List<ProductBasicDetailsDTO> getAllProducts() {
+        return productRepository.findAll().stream().map(ProductBasicDetailsDTO::new).collect(Collectors.toList());
     }
+
+//    List<ProductBasicDetailsDTO> getAllProducts() {
+//        return productRepository.findAll().stream().map(product ->
+//                (ProductBasicDetailsDTO) product
+//        ).collect(Collectors.toList());
+//    }
 
     List<Product> getAllProducts(Pageable page) {
         return productRepository
@@ -46,7 +55,8 @@ class ProductService {
     private void setProductSizeAndColour(Product newProduct) {
         newProduct.setColours(colourService.getColoursById(newProduct.getColours().stream().map(Colour::getId).toList()));
         newProduct.setSizes(sizeService.getSizesById(newProduct.getSizes().stream().map(Size::getId).toList()));
-        newProduct.setMaterial(materialService.getMaterialById(newProduct.getMaterial().getId()));
+//        newProduct.setMaterial(materialService.getMaterialsById(newProduct.getMaterial().getId()));
+        newProduct.setMaterials(materialService.getMaterialsById(newProduct.getMaterials().stream().map(Material::getId).toList()));
     }
 
     // TODO dodać walidację, jeżeli w repo nie będzie tego materiału, jakiś Optional np.
@@ -60,7 +70,7 @@ class ProductService {
     Product getProductById(Long id) {
         return productRepository
                 .findById(id)
-                .orElseThrow(() -> new ObjectNotFoundInDBException("Product with id: " + id + " was not found."));
+                .orElseThrow(() -> new ObjectNotFoundInDBException("Nie znaleziono w bazie produktu o numerze id: " + id + "."));
     }
 
     void updateProduct(Long id, Product updatedInfo) {
@@ -68,23 +78,18 @@ class ProductService {
     }
 
     Product update(Product toUpdate, final Product updatedInfo) {
+
         toUpdate.setName(updatedInfo.getName());
         toUpdate.setDescription(updatedInfo.getDescription());
         toUpdate.setAdditionalInformation(updatedInfo.getAdditionalInformation());
         toUpdate.setCategory(updatedInfo.getCategory());
-        toUpdate.setMaterial(updatedInfo.getMaterial());
-        toUpdate.setSizes(toUpdate.getSizes());
-        toUpdate.setColours(toUpdate.getColours());
-        toUpdate.setPrices(toUpdate.getPrices());
-        toUpdate.setMaterialUsage(toUpdate.getMaterialUsage());
+        toUpdate.setMaterials(updatedInfo.getMaterials());
+        toUpdate.setSizes(updatedInfo.getSizes());
+        toUpdate.setColours(updatedInfo.getColours());
+//        toUpdate.setPrices(updatedInfo.getPrices());
+        toUpdate.setMaterialUsage(updatedInfo.getMaterialUsage());
         toUpdate.setUnitUsage(updatedInfo.getUnitUsage());
         return toUpdate;
     }
 
-    BigDecimal getPriceByProductId(Long id) {
-//        getProductById(id).getPrices().get(0).
-        BigDecimal test = getProductById(id).getPrices().stream().max(Comparator.comparing(Price::getValidFrom)).get().getPrice();
-        System.out.println("Cena ostatnia: " + test);
-        return getProductById(id).getPrices().get(0).getPrice();
-    }
 }

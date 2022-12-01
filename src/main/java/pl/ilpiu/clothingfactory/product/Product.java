@@ -1,71 +1,70 @@
 package pl.ilpiu.clothingfactory.product;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import pl.ilpiu.clothingfactory.material.Material;
 import pl.ilpiu.clothingfactory.product.colour.Colour;
-import pl.ilpiu.clothingfactory.product.price.Price;
 import pl.ilpiu.clothingfactory.product.size.Size;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
-@Data
 @Entity
+@Data
 @Table(name = "products")
-public
-class Product {
+public class Product extends ProductBasicDetailsDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    // TODO blokada na bazie danych, żeby nie było możliwości zmiany jednego obiektu przez kilka osób jednocześnie
+    // optimistic / pesimistic lock na bazie danych -> baeldung
 
-    // TODO change requirement in database schema to optional
-    private String name = "template";
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 
-    @NotNull
-    private String description;
+
+//    private String name = "template";
+
+//    @NotNull
+//    private String description;
 
     private String additionalInformation;
 
-    @Enumerated(EnumType.STRING)
-    private Category category;
+//    @Enumerated(EnumType.STRING)
+//    private Category category;
 
-    // TODO tu powinien byc raczej material id
-    // lub dodac kolejna opcje w serwisie z wyszukiwaniem
-//    @ManyToOne(targetEntity = Material.class)
-    @ManyToOne
-    private Material material;
+//    private BigDecimal price;
 
-    // TODO check if targetEntity is still nessesery
-    @ManyToMany(targetEntity = Size.class, cascade = CascadeType.ALL)
+    private double materialUsage;
+
+    private String unitUsage;
+
+    @ManyToMany(targetEntity = Material.class, cascade = {CascadeType.PERSIST})
+    @JoinTable(name = "products_materials",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "material_id"))
+    @javax.validation.constraints.Size(min = 1, message = "Produkt musi być wykononany z conajmniej jednego materiału")
+    private List<Material> materials;
+
+    @ManyToMany(targetEntity = Size.class, cascade = {CascadeType.PERSIST})
     @JoinTable(name = "products_sizes",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "size_id"))
     @javax.validation.constraints.Size(min = 1, message = "Produkt musi mieć rozmiar")
     private List<Size> sizes;
 
-    // TODO change column name in joining table
-    // TODO check if targetEntity is still nessesery
-    @ManyToMany(targetEntity = Colour.class, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = Colour.class, cascade = {CascadeType.PERSIST})
     @JoinTable(name = "products_colours",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "colour_id"))
     @javax.validation.constraints.Size(min = 1, message = "Produkt musi posiadac kolor")
     private List<Colour> colours;
 
-    // TODO check if fetch is still nessesery, after adding cascade type
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JsonManagedReference
-    @JsonIgnore
-    @OneToMany(mappedBy = "product")
-    private List<Price> prices;
+    private Date createdAt;
 
-    private double materialUsage;
-
-    private String unitUsage;
-
+    // TODO przy testach ustawić zegar jako argument Clock -> google
+    @PrePersist
+    public void productCreatedAt(){
+        this.setCreatedAt(new Date());
+    }
 
 }
