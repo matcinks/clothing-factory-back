@@ -32,7 +32,7 @@ class SizeService {
                 .save(newSize);
     }
 
-    Size getSizeById(Long id) {
+    public Size getSizeById(Long id) {
         return sizeRepository
                 .findById(id)
                 .orElseThrow(() -> new ObjectNotFoundInDBException("Colour with id: " + id + " was not found."));

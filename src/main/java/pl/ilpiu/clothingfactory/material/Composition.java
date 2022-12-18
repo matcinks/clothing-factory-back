@@ -1,12 +1,14 @@
 package pl.ilpiu.clothingfactory.material;
 
 import lombok.Data;
+import org.javers.core.metamodel.annotation.TypeName;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
+@TypeName("Composition") // oznaczenie typu dla Javers
 @Table(name = "compositions")
 public class Composition {
 

@@ -10,5 +10,6 @@ create table products
     material_usage         double,
     unit_usage             varchar(255),
     price                  decimal(19, 2),
+    version                bigint,
     created_at             timestamp
 );

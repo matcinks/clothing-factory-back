@@ -3,7 +3,10 @@ package pl.ilpiu.clothingfactory.exception;
 import lombok.Getter;
 import org.hibernate.JDBCException;
 import org.springframework.http.HttpStatus;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+
+import java.util.Objects;
 
 
 @Getter
@@ -33,7 +36,13 @@ public class CustomExceptionResponse {
 
     public CustomExceptionResponse(MethodArgumentNotValidException ex) {
         this.errorCode = "400";
-        this.message = ex.getFieldError().getDefaultMessage();
+        this.message = Objects.requireNonNull(ex.getFieldError()).getDefaultMessage();
         this.httpStatus = HttpStatus.BAD_REQUEST;
+    }
+
+    public CustomExceptionResponse(ObjectOptimisticLockingFailureException ex) {
+        this.errorCode = "409";
+        this.message = "Nie można zapisać zmian. Obiekt został zmodyfikowany przez innego użytkownika.";
+        this.httpStatus = HttpStatus.CONFLICT;
     }
 }

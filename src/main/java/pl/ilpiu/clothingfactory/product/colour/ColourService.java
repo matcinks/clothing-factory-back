@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import pl.ilpiu.clothingfactory.exception.ObjectNotFoundInDBException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,13 +31,13 @@ class ColourService {
                 .save(newColour);
     }
 
-    Colour getColourById(Long id) {
+    public Colour getColourById(Long id) {
         return colourRepository
                 .findById(id)
                 .orElseThrow(() -> new ObjectNotFoundInDBException("Colour with id: " + id + " was not found."));
     }
 
-    public List <Colour> getColoursById(List<Long> idList) {
+    public List<Colour> getColoursById(List<Long> idList) {
         List <Colour> coloursList = colourRepository.findAllByIdIn(idList);
         if (coloursList.isEmpty()) throw new ObjectNotFoundInDBException("Nie znaleziono wybranych kolorów w bazie danych.");
         return coloursList;

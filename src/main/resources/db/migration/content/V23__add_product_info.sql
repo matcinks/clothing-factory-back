@@ -9,6 +9,9 @@ values (1, 1),
        (1, 3),
        (1, 5);
 
+insert into products_materials (product_id, material_id)
+values (1, 1);
+
 -- TODO usunąć to co poniżej późnniej
 -- insert into prices (price, valid_from, product_id)
 -- -- values (79, CURRENT_TIMESTAMP, 1);

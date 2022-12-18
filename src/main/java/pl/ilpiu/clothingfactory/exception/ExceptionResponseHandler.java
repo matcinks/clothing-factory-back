@@ -5,6 +5,7 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,6 +19,7 @@ import java.time.format.DateTimeParseException;
 @ControllerAdvice
 @RestController
 public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
+
     @ExceptionHandler(CustomException.class)
     public final ResponseEntity<CustomExceptionResponse> handleCustomExceptions(CustomException ex) {
         return ResponseEntity.status(ex.getHttpStatus()).body(new CustomExceptionResponse(ex));
@@ -52,5 +54,10 @@ public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomExceptionResponse(ex));
+    }
+
+    @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+    public final ResponseEntity<CustomExceptionResponse> handleObjectOptimisticLockingFailureException(ObjectOptimisticLockingFailureException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new CustomExceptionResponse(ex));
     }
 }

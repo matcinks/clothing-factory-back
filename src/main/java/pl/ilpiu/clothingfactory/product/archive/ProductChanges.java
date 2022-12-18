@@ -1,5 +1,6 @@
 package pl.ilpiu.clothingfactory.product.archive;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -29,7 +30,20 @@ class ProductChanges {
     private String valueAfter;
     private Date changeDate;
     // TODO przypisac dane usera ktory dokonal zmiany
+    // TODO zmienić usera
+    private String user;
 //    private User userId;
+
+    public ProductChanges() {
+    }
+
+    ProductChanges(Long productId, String propertyName, String valueBefore, String valueAfter, String user) {
+        this.productId = productId;
+        this.propertyName = propertyName;
+        this.valueBefore = valueBefore;
+        this.valueAfter = valueAfter;
+        this.user = user;
+    }
 
     @PrePersist
     public void changeCreatedAt() {

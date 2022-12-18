@@ -1,6 +1,8 @@
 package pl.ilpiu.clothingfactory.material;
 
 import lombok.Data;
+import org.javers.core.metamodel.annotation.DiffIgnore;
+import org.javers.core.metamodel.annotation.TypeName;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Data
 @Entity
+@TypeName("Colour") // oznaczenie typu dla Javers
 @Table(name = "materials")
 public class Material {
 
@@ -24,7 +27,7 @@ public class Material {
 
     private String additionalDescription;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "materials_compositions")
     @Size(min = 1, message = "Produkt musi sie skladac z minimum jednego skladnika.")
     private List<Composition> composition;
@@ -34,7 +37,7 @@ public class Material {
 
     // TODO This field is supposed to store unit type. It is String type, check it's behaviour and usefulness later
     private String priceUnit;
-
+    @DiffIgnore
     private Date createdAt;
 
     @PrePersist
