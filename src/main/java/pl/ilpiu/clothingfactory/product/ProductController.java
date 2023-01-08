@@ -18,8 +18,8 @@ class ProductController {
     private final ProductService productService;
 
     @GetMapping(params = {"!sort", "!page", "!size"})
-    List<ProductDetailsBasicInfo> getAllProducts() {
-        return productService.getAllProducts();
+    List<ProductDetailsBasicInfo> getAllProducts(@RequestParam(name = "category", required = false) List<Category> checkedCategories, @RequestParam(name = "search", required = false) String search) {
+        return productService.getAllProducts(checkedCategories, search);
     }
 
     @GetMapping
@@ -32,13 +32,18 @@ class ProductController {
         return productService.getProductById(id);
     }
 
+    @GetMapping("/category")
+    List<Category> getAllCategories() {
+        return productService.getAllCategories();
+    }
+
     @PostMapping
-    Product addNewProduct(@Valid @RequestBody Product newProduct){
+    Product addNewProduct(@Valid @RequestBody Product newProduct) {
         return productService.createProduct(newProduct);
     }
 
     @PutMapping
-    void updateProduct(@Valid @RequestBody Product updatedInfo){
+    void updateProduct(@Valid @RequestBody Product updatedInfo) {
         productService.updateProduct(updatedInfo);
     }
 }

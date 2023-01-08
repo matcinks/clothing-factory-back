@@ -9,6 +9,7 @@ import pl.ilpiu.clothingfactory.product.colour.Colour;
 import pl.ilpiu.clothingfactory.product.size.Size;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class Product {
 
     private BigDecimal price;
 
-    @NotNull
+    @NotBlank(message = "Nowy produkt musi posiadać opis.")
     private String description;
 
     private String additionalInformation;
@@ -46,7 +47,7 @@ public class Product {
     @JoinTable(name = "products_materials",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "material_id"))
-    @javax.validation.constraints.Size(min = 1, message = "Produkt musi być wykononany z conajmniej jednego materiału")
+//    @javax.validation.constraints.Size(min = 1, message = "Produkt musi być wykononany z conajmniej jednego materiału")
     @ShallowReference
     private List<Material> materials;
 
@@ -55,7 +56,7 @@ public class Product {
     @JoinTable(name = "products_sizes",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "size_id"))
-    @javax.validation.constraints.Size(min = 1, message = "Produkt musi mieć rozmiar")
+//    @javax.validation.constraints.Size(min = 1, message = "Produkt musi mieć rozmiar")
     @ShallowReference
     private List<Size> sizes;
 
@@ -64,7 +65,7 @@ public class Product {
     @JoinTable(name = "products_colours",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "colour_id"))
-    @javax.validation.constraints.Size(min = 1, message = "Produkt musi posiadac kolor")
+//    @javax.validation.constraints.Size(min = 1, message = "Produkt musi posiadac kolor")
     @ShallowReference
     private List<Colour> colours;
 
