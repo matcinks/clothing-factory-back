@@ -27,6 +27,14 @@ public class ProductChangesService {
     private static final String MATERIALS = "materials";
     private static final String SIZES = "sizes";
     private static final String COLOURS = "colours";
+    private static final String NAME = "name";
+    private static final String PRICE = "price";
+    private static final String DESCRIPTION = "description";
+    private static final String ADDITIONAL_DESCRIPTION = "additionalDescription";
+    private static final String MATERIAL_USAGE = "materialUsage";
+    private static final String UNIT_USAGE = "unitUsage";
+    private static final String CATEGORY = "category";
+
 
     ProductChangesService(final ProductChangesRepository productChangesRepository, final Javers javers) {
         this.productChangesRepository = productChangesRepository;
@@ -40,8 +48,6 @@ public class ProductChangesService {
     public void archiveProductChanges(Product beforeUpdate, Product afterUpdate) {
 
         if (!beforeUpdate.getId().equals(afterUpdate.getId())) throw new IllegalArgumentException("Product id must be the same");
-
-//        Long productId = beforeUpdate.getId();
 
         List<ProductChanges> changesToCommit = javers.compare(beforeUpdate, afterUpdate).getChanges().stream()
                 .map(change -> processProductChange(change, beforeUpdate, afterUpdate))
@@ -104,11 +110,30 @@ public class ProductChangesService {
     private ProductChanges createProductChange(final Long productId, final String propertyName, final String beforeUpdate, final String afterUpdate) {
         return new ProductChanges(
                 productId,
-                propertyName,
+//                propertyName,
+                setTranslatedPropertyName(propertyName),
                 beforeUpdate,
                 afterUpdate,
                 "test" //TODO change to user logged into system
         );
+    }
+
+    private String setTranslatedPropertyName(String propertyName) {
+        String translatedPropertyName = null;
+        switch (propertyName) {
+            case NAME -> translatedPropertyName =  "Nazwa";
+            case DESCRIPTION -> translatedPropertyName = "Opis";
+            case PRICE -> translatedPropertyName = "Cena";
+            case MATERIALS -> translatedPropertyName = "Lista materiałów";
+            case SIZES -> translatedPropertyName = "Lista rozmiarów";
+            case COLOURS -> translatedPropertyName = "Lista kolorów";
+            case ADDITIONAL_DESCRIPTION -> translatedPropertyName = "Dodatkowe informacje";
+            case MATERIAL_USAGE -> translatedPropertyName = "Zużycie materiału";
+            case UNIT_USAGE -> translatedPropertyName = "Jednotska zużycia";
+            case CATEGORY -> translatedPropertyName = "Kategoria";
+            default -> translatedPropertyName = propertyName;
+        }
+        return translatedPropertyName;
     }
 
 }

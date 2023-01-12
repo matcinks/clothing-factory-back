@@ -5,6 +5,7 @@ import org.apache.commons.lang3.EnumUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.ilpiu.clothingfactory.exception.ObjectNotFoundInDBException;
+import pl.ilpiu.clothingfactory.exception.ObjectVersionInconsistentException;
 import pl.ilpiu.clothingfactory.material.Material;
 import pl.ilpiu.clothingfactory.material.MaterialService;
 import pl.ilpiu.clothingfactory.product.archive.ProductChangesService;
@@ -15,6 +16,7 @@ import pl.ilpiu.clothingfactory.product.size.Size;
 import pl.ilpiu.clothingfactory.product.size.SizeService;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -71,15 +73,6 @@ public class ProductService {
         }
     }
 
-//    private Long checkForLeadingZerosAndTrim (String search) {
-//        try {
-//            Long id = Long.parseLong(search);
-//            return id;
-//        } catch (NumberFormatException e) {
-//            return null;
-//        }
-//    }
-
     // TODO zmienic na zwrotke z ProductDetailsDTO (projekcje)
     List<Product> getAllProducts(Pageable page) {
         return productRepository
@@ -98,7 +91,6 @@ public class ProductService {
         return productRepository
                 .save(newProduct);
     }
-
 
     // metody do ustawienia koloru, rozmiaru i materialu
     // TODO przerobic na 1 metode generyczna
@@ -126,13 +118,14 @@ public class ProductService {
 
     // TODO co zwracać w tej metodzie? void czy Product? + czy zrobić sprawdzenie updatedInfo.id == productInDBId?
     void updateProduct(Product updatedInfo) {
+        Product productInDB = getProductById(updatedInfo.getId());
 
-//        // id aktualizowanego produktu
-//        ./awszroductId = updatedInfo.getId();
-//
-//        // produkt z bazy danych do porównania ze zmianami
-//        Product productFromDB = (Product)productRepository.findProductDetailsForComparisonById(productId)
-//                .orElseThrow(() -> new ObjectNotFoundInDBException("Nie znaleziono w bazie produktu o numerze id: " + productId + "."));
+        System.out.println("productInDB price: " + productInDB.getPrice());
+        System.out.println("productSend price: " + updatedInfo.getPrice());
+
+        if (updatedInfo.getVersion() != productInDB.getVersion()) {
+            throw new ObjectVersionInconsistentException("Produkt został zaaktualizowany przez innego użytkownika. Odśwież stronę i spróbuj ponownie.");
+        }
 
         // archiwizacja zmian produktu
         productChangesService.archiveProductChanges(getProductById(updatedInfo.getId()), updatedInfo);
