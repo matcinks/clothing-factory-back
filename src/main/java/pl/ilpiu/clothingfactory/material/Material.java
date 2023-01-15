@@ -5,6 +5,7 @@ import org.javers.core.metamodel.annotation.DiffIgnore;
 import org.javers.core.metamodel.annotation.TypeName;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,14 +23,14 @@ public class Material {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotEmpty(message = "Materiał musi mieć nazwę.")
     private String name;
 
     private String additionalDescription;
 
-    @ManyToMany
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "materials_compositions")
-    @Size(min = 1, message = "Produkt musi sie skladac z minimum jednego skladnika.")
+    @Size(min = 1, message = "Materiał musi się składać z minimum jednego surowca.")
     private List<Composition> composition;
 
     @NotNull

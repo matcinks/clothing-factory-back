@@ -30,7 +30,7 @@ public class ProductChangesService {
     private static final String NAME = "name";
     private static final String PRICE = "price";
     private static final String DESCRIPTION = "description";
-    private static final String ADDITIONAL_DESCRIPTION = "additionalDescription";
+    private static final String ADDITIONAL_INFORMATION = "additionalInformation";
     private static final String MATERIAL_USAGE = "materialUsage";
     private static final String UNIT_USAGE = "unitUsage";
     private static final String CATEGORY = "category";
@@ -127,7 +127,7 @@ public class ProductChangesService {
             case MATERIALS -> translatedPropertyName = "Lista materiałów";
             case SIZES -> translatedPropertyName = "Lista rozmiarów";
             case COLOURS -> translatedPropertyName = "Lista kolorów";
-            case ADDITIONAL_DESCRIPTION -> translatedPropertyName = "Dodatkowe informacje";
+            case ADDITIONAL_INFORMATION -> translatedPropertyName = "Informacje szczegółowe";
             case MATERIAL_USAGE -> translatedPropertyName = "Zużycie materiału";
             case UNIT_USAGE -> translatedPropertyName = "Jednotska zużycia";
             case CATEGORY -> translatedPropertyName = "Kategoria";

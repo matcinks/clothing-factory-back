@@ -39,20 +39,17 @@ class MaterialController {
         return materialService.createMaterial(newMaterial);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @ResponseBody
-    void updateMaterial(@PathVariable Long id, @Valid @RequestBody Material updatedInfo){
-        materialService.updateMaterial(id, updatedInfo);
+    void updateMaterial( @Valid @RequestBody Material updatedInfo){
+        materialService.updateMaterial(updatedInfo);
     }
 
 
-//    @PatchMapping("/{id}")
-//    @ResponseBody
-//    void updateMaterialPartially(@PathVariable Long id, @RequestBody Map<Object, Object> valuesToUpdate){
-//        materialService.updateMaterialPartially(id, valuesToUpdate);
-//    }
-
-
-
+    @GetMapping("/rawmaterial")
+    @ResponseBody
+    List<RawMaterial> getAllRawMaterials() {
+        return materialService.getAllRawMaterials();
+    }
 
 }

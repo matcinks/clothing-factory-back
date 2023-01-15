@@ -5,7 +5,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.ilpiu.clothingfactory.exception.MaterialCompositionExceededException;
 import pl.ilpiu.clothingfactory.exception.ObjectNotFoundInDBException;
+import pl.ilpiu.clothingfactory.product.Category;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,7 +38,7 @@ public class MaterialService {
                 .reduce(0, Integer::sum);
 
         if (compositionSummary != 100) {
-            throw new MaterialCompositionExceededException("Material composition summary should be equals 100.");
+            throw new MaterialCompositionExceededException("Suma składników w materiale musi wynosić 100%.");
         }
 
         return materialRepository
@@ -61,8 +63,8 @@ public class MaterialService {
         return materialsList;
     }
 
-    void updateMaterial(Long id, Material updatedInfo) {
-        materialRepository.save(update(getMaterialById(id), updatedInfo));
+    void updateMaterial(Material updatedInfo) {
+        materialRepository.save(update(getMaterialById(updatedInfo.getId()), updatedInfo));
     }
 
     Material update(Material toUpdate, final Material updatedInfo) {
@@ -73,6 +75,10 @@ public class MaterialService {
         toUpdate.setPriceUnit(updatedInfo.getPriceUnit());
         toUpdate.createdAt();
         return toUpdate;
+    }
+
+    List<RawMaterial> getAllRawMaterials() {
+        return Arrays.asList(RawMaterial.values());
     }
 
 

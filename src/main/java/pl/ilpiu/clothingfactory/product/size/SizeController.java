@@ -47,10 +47,10 @@ class SizeController {
         sizeService.updateSize(id, updatedInfo);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseBody
-    void deleteSize(@PathVariable Long id){
-        sizeService.deleteSize(id);
-    }
+//    @DeleteMapping("/{id}")
+//    @ResponseBody
+//    void deleteSize(@PathVariable Long id){
+//        sizeService.deleteSize(id);
+//    }
 
 }

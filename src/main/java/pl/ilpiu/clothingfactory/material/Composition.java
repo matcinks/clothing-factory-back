@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
-@TypeName("Composition") // oznaczenie typu dla Javers
+@TypeName("Composition")
 @Table(name = "compositions")
 public class Composition {
 
