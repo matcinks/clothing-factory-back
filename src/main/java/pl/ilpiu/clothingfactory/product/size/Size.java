@@ -13,6 +13,7 @@ import java.util.Date;
 @TypeName("Size") // oznaczenie typu dla Javers
 @Table(name = "sizes")
 public class Size {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

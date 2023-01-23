@@ -30,6 +30,7 @@ class MaterialController {
     @GetMapping("/{id}")
     @ResponseBody
     Material getMaterialById(@PathVariable Long id) {
+        System.out.println("material one");
         return materialService.getMaterialById(id);
     }
 
@@ -44,7 +45,6 @@ class MaterialController {
     void updateMaterial( @Valid @RequestBody Material updatedInfo){
         materialService.updateMaterial(updatedInfo);
     }
-
 
     @GetMapping("/rawmaterial")
     @ResponseBody

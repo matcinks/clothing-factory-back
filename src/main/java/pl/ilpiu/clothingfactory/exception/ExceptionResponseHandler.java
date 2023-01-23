@@ -60,4 +60,10 @@ public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
     public final ResponseEntity<CustomExceptionResponse> handleObjectOptimisticLockingFailureException(ObjectOptimisticLockingFailureException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new CustomExceptionResponse(ex));
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public final ResponseEntity<CustomExceptionResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomExceptionResponse(ex));
+    }
+
 }

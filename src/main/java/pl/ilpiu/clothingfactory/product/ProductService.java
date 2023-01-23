@@ -12,6 +12,7 @@ import pl.ilpiu.clothingfactory.product.archive.ProductChangesService;
 import pl.ilpiu.clothingfactory.product.colour.Colour;
 import pl.ilpiu.clothingfactory.product.colour.ColourService;
 import pl.ilpiu.clothingfactory.product.projections.ProductDetailsBasicInfo;
+import pl.ilpiu.clothingfactory.product.projections.ProductMaterials;
 import pl.ilpiu.clothingfactory.product.size.Size;
 import pl.ilpiu.clothingfactory.product.size.SizeService;
 
@@ -110,7 +111,7 @@ public class ProductService {
         newProduct.setMaterials(materialService.getMaterialsById(newProduct.getMaterials().stream().map(Material::getId).toList()));
     }
 
-    Product getProductById(Long id) {
+     public Product getProductById(Long id) {
         return productRepository
                 .findById(id)
                 .orElseThrow(() -> new ObjectNotFoundInDBException("Nie znaleziono w bazie produktu o numerze id: " + id + "."));
@@ -120,8 +121,8 @@ public class ProductService {
     void updateProduct(Product updatedInfo) {
         Product productInDB = getProductById(updatedInfo.getId());
 
-        System.out.println("productInDB price: " + productInDB.getPrice());
-        System.out.println("productSend price: " + updatedInfo.getPrice());
+//        System.out.println("productInDB price: " + productInDB.getPrice());
+//        System.out.println("productSend price: " + updatedInfo.getPrice());
 
         if (updatedInfo.getVersion() != productInDB.getVersion()) {
             throw new ObjectVersionInconsistentException("Produkt został zaaktualizowany przez innego użytkownika. Odśwież stronę i spróbuj ponownie.");
@@ -136,5 +137,12 @@ public class ProductService {
 
     List<Category> getAllCategories() {
         return Arrays.asList(Category.values());
+    }
+
+    ProductMaterials getProductMaterials(final Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new ObjectNotFoundInDBException("Nie znaleziono w bazie produktu o numerze id: " + id + ".");
+        }
+        return productRepository.findAllById(id);
     }
 }

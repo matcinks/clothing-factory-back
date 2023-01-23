@@ -10,5 +10,4 @@ import java.util.List;
 interface MaterialRepository extends JpaRepository<Material, Long> {
 
     List<Material> findAllByIdIn (List <Long> id);
-
 }

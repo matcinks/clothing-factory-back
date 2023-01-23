@@ -16,20 +16,20 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "labels_schedules")
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class LabelsSchedule extends Schedule {
 
     @Enumerated(EnumType.STRING)
     private LabelsType labelsType;
 
-    public LabelsSchedule(CuttingSchedule cuttingSchedule){
-        this.setAmount(cuttingSchedule.getAmount());
-        this.setColour(cuttingSchedule.getColour());
-        this.setPriority(cuttingSchedule.getPriority());
-        this.setProduct(cuttingSchedule.getProduct());
-        this.setStatus(cuttingSchedule.getStatus());
-        this.setSize(cuttingSchedule.getSize());
-        this.setScheduledOn(new Date());
-    }
+//    public LabelsSchedule(CuttingSchedule cuttingSchedule){
+//        this.setAmount(cuttingSchedule.getAmount());
+//        this.setColour(cuttingSchedule.getColour());
+//        this.setPriority(cuttingSchedule.getPriority());
+//        this.setProduct(cuttingSchedule.getProduct());
+//        this.setStatus(cuttingSchedule.getStatus());
+//        this.setSize(cuttingSchedule.getSize());
+//        this.setScheduledOn(new Date());
+//    }
 }

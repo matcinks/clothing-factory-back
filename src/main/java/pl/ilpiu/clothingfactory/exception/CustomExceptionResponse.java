@@ -45,4 +45,10 @@ public class CustomExceptionResponse {
         this.message = "Nie można zapisać zmian. Obiekt został zmodyfikowany przez innego użytkownika.";
         this.httpStatus = HttpStatus.CONFLICT;
     }
+
+    public CustomExceptionResponse(IllegalArgumentException ex) {
+        this.errorCode = "400";
+        this.message = ex.getMessage();
+        this.httpStatus = HttpStatus.BAD_REQUEST;
+    }
 }

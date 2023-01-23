@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-class SeamstressService {
+public class SeamstressService {
 
     private final SeamstressRepository seamstressRepository;
 
@@ -31,7 +31,7 @@ class SeamstressService {
                 .save(newSeamstress);
     }
 
-    Seamstress getSeamstressById(Long id) {
+     public Seamstress getSeamstressById(Long id) {
         return seamstressRepository
                 .findById(id)
                 .orElseThrow(() -> new ObjectNotFoundInDBException("Seamstress with id: " + id + " was not found."));

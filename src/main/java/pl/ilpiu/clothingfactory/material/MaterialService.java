@@ -81,7 +81,6 @@ public class MaterialService {
         return Arrays.asList(RawMaterial.values());
     }
 
-
     // TODO create update for material
     // PATCH or PUT? Maybe update only some fields?
 //    void updateMaterialPartially(Long id, Map<Object, Object> valuesToUpdate) {

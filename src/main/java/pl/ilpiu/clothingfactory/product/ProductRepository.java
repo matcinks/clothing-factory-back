@@ -2,13 +2,12 @@ package pl.ilpiu.clothingfactory.product;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import pl.ilpiu.clothingfactory.product.projections.ProductMaterials;
 
 import java.util.List;
 
 @Repository
-
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     // dynamiczna metoda - dopasowuje projekcje do zwracania widoków
@@ -32,4 +31,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // dynamiczna metoda - dopasowuje projekcje do zwracania widoków + filtrowanie po id
     <T> List<T> findAllByAndId (Class<T> projection, Long id);
 
+    ProductMaterials findAllById(Long id);
+
+    boolean existsById(Long id);
 }
