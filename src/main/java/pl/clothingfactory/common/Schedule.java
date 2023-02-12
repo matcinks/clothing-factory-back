@@ -1,14 +1,15 @@
 package pl.clothingfactory.common;
 
 
+import jakarta.persistence.*;
 import lombok.Data;
 import pl.clothingfactory.product.colour.Colour;
 import pl.clothingfactory.product.Product;
 import pl.clothingfactory.product.size.Size;
 
-import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+//import javax.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import java.util.Date;
 
 @MappedSuperclass

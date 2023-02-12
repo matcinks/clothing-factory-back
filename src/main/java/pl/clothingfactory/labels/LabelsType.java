@@ -1,7 +1,7 @@
 package pl.clothingfactory.labels;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 public enum LabelsType {
     CARE, PRICE;

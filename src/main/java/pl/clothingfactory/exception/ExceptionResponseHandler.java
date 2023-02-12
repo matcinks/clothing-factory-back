@@ -1,9 +1,12 @@
 package pl.clothingfactory.exception;
 
+
+import io.jsonwebtoken.ExpiredJwtException;
 import org.hibernate.JDBCException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,6 +23,7 @@ import java.time.format.DateTimeParseException;
 @RestController
 public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
 
+    // Custom exception
     @ExceptionHandler(CustomException.class)
     public final ResponseEntity<CustomExceptionResponse> handleCustomExceptions(CustomException ex) {
         return ResponseEntity.status(ex.getHttpStatus()).body(new CustomExceptionResponse(ex));
@@ -52,7 +56,7 @@ public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
     }
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomExceptionResponse(ex));
     }
 
@@ -64,6 +68,12 @@ public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public final ResponseEntity<CustomExceptionResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomExceptionResponse(ex));
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public final ResponseEntity<CustomExceptionResponse> handleJwtException(ExpiredJwtException ex) {
+        System.out.println("wpadlo");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new CustomExceptionResponse(ex));
     }
 
 }

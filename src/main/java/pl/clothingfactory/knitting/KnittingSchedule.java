@@ -4,9 +4,9 @@ import lombok.Data;
 import pl.clothingfactory.common.Schedule;
 import pl.clothingfactory.knitting.KnittingDevices.KnittingDevice;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.ManyToOne;
 
 // TODO zmienic dziedziczenie na ProductionSchedul, zeby uwzglednic material
 @Entity

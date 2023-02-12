@@ -3,9 +3,10 @@ package pl.clothingfactory.common;
 import lombok.Data;
 import pl.clothingfactory.material.Material;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
+
 
 @MappedSuperclass
 @Data

@@ -3,8 +3,8 @@ package pl.clothingfactory.product.archive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -31,7 +31,7 @@ class ProductChanges {
     private Date changeDate;
     // TODO przypisac dane usera ktory dokonal zmiany
     // TODO zmienić usera
-    private String user;
+//    private String user;
 //    private User userId;
 
     public ProductChanges() {
@@ -42,7 +42,7 @@ class ProductChanges {
         this.propertyName = propertyName;
         this.valueBefore = valueBefore;
         this.valueAfter = valueAfter;
-        this.user = user;
+//        this.user = user;
     }
 
     @PrePersist

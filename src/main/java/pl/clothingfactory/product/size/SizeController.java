@@ -2,9 +2,10 @@ package pl.clothingfactory.product.size;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -40,6 +41,7 @@ class SizeController {
 
     @PutMapping("/{id}")
     @ResponseBody
+    @PreAuthorize("hasAnyAuthority('KIEROWNIK', 'BIURO')")
     void updateSize(@PathVariable Long id, @Valid @RequestBody Size updatedInfo){
         sizeService.updateSize(id, updatedInfo);
     }

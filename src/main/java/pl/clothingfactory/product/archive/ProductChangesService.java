@@ -1,6 +1,5 @@
 package pl.clothingfactory.product.archive;
 
-import org.apache.commons.lang3.StringUtils;
 import org.javers.core.Javers;
 import org.javers.core.diff.Change;
 import org.javers.core.diff.changetype.ValueChange;
@@ -22,6 +21,7 @@ public class ProductChangesService {
     private final ProductChangesRepository productChangesRepository;
     private final Javers javers;
 
+    private static final String EMPTY_VALUE = "";
     private static final String VALUE_CHANGE = "ValueChange";
     private static final String LIST_CHANGE = "ListChange";
     private static final String MATERIALS = "materials";
@@ -75,8 +75,10 @@ public class ProductChangesService {
         ValueChange valueChange = (ValueChange) change;
         return createProductChange(productId,
                 valueChange.getPropertyName(),
-                ofNullable(valueChange.getLeft()).map(Object::toString).orElse(StringUtils.EMPTY),
-                ofNullable(valueChange.getRight()).map(Object::toString).orElse(StringUtils.EMPTY)
+                ofNullable(valueChange.getLeft()).map(Object::toString).orElse(EMPTY_VALUE),
+//                ofNullable(valueChange.getLeft()).map(Object::toString).orElse(StringUtils.EMPTY), // poprzednie rozwiazanie
+                ofNullable(valueChange.getRight()).map(Object::toString).orElse(EMPTY_VALUE)
+//                ofNullable(valueChange.getRight()).map(Object::toString).orElse(StringUtils.EMPTY) // poprzednie rozwiazanie
         );
     }
 

@@ -4,7 +4,7 @@ import lombok.Data;
 import pl.clothingfactory.common.ProductionSchedule;
 import pl.clothingfactory.sewing.seamstress.Seamstress;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 
 @Entity

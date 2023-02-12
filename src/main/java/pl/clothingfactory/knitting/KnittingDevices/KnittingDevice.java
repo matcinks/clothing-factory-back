@@ -2,10 +2,9 @@ package pl.clothingfactory.knitting.KnittingDevices;
 
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Data
 @Entity

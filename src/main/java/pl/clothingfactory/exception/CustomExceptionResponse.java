@@ -1,5 +1,6 @@
 package pl.clothingfactory.exception;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.Getter;
 import org.hibernate.JDBCException;
 import org.springframework.http.HttpStatus;
@@ -46,9 +47,17 @@ public class CustomExceptionResponse {
         this.httpStatus = HttpStatus.CONFLICT;
     }
 
-    public CustomExceptionResponse(IllegalArgumentException ex) {
+    public CustomExceptionResponse(IllegalArgumentException ex){
         this.errorCode = "400";
         this.message = ex.getMessage();
         this.httpStatus = HttpStatus.BAD_REQUEST;
+    }
+
+    public CustomExceptionResponse(ExpiredJwtException ex){
+        this.errorCode = "403";
+        this.message = "Ważność wygenerowanego tokenu wygasła. Proszę zalogować się ponownie.";
+        this.httpStatus = HttpStatus.FORBIDDEN;
+
+
     }
 }
