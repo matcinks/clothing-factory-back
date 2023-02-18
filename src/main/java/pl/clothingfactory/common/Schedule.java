@@ -7,7 +7,6 @@ import pl.clothingfactory.product.colour.Colour;
 import pl.clothingfactory.product.Product;
 import pl.clothingfactory.product.size.Size;
 
-//import javax.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import java.util.Date;
@@ -32,24 +31,14 @@ public class Schedule {
     @JoinColumn(name = "colour_id", referencedColumnName = "id")
     private Colour colour;
 
-    //    @NotNull
     private Integer amount;
 
-    // TODO Plan schedule priorities, maybe add some restrictions, check restrictions @Min, @Max
     @Min(1)
     @Max(50)
-//    @NotNull(message = "Schedule entry should have positive amount.")
     private Integer priority;
 
-    // TODO check default status
-    // TODO add more statuses
     @Enumerated(EnumType.STRING)
     private Status status = Status.ZAPLANOWANE;
 
     private Date scheduledOn;
-
-//    @PrePersist
-//    private void scheduledOn() {
-//        this.scheduledOn = new Date();
-//    }
 }

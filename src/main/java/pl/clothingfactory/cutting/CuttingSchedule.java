@@ -13,4 +13,6 @@ import jakarta.persistence.*;
 @Data
 public class CuttingSchedule extends Schedule{
 
+    private String TEST;
+
 }
