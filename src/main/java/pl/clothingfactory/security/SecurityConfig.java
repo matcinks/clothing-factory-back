@@ -36,7 +36,6 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers(antMatcher("/console/**")).permitAll() //TODO usunac, tylko do podgladu konsoli H2
                                 .requestMatchers(antMatcher("/auth/**")).permitAll()
                                 .anyRequest().authenticated()
                 )
@@ -54,7 +53,7 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:3001"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

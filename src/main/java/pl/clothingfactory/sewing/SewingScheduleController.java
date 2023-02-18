@@ -22,11 +22,6 @@ class SewingScheduleController {
         return sewingScheduleService.getAllSewingBasicInfoEntries();
     }
 
-    @GetMapping
-    List<SewingSchedule> getAllSewingEntries(Pageable page) {
-        return sewingScheduleService.getAllSewingEntries(page);
-    }
-
     @GetMapping("/{id}")
     SewingSchedule getSewingEntryById(@PathVariable Long id) {
         return sewingScheduleService.getSewingEntryById(id);

@@ -116,7 +116,7 @@ public class ProductChangesService {
                 setTranslatedPropertyName(propertyName),
                 beforeUpdate,
                 afterUpdate,
-                "test" //TODO change to user logged into system
+                "test"
         );
     }
 

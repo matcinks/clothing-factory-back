@@ -19,12 +19,6 @@ class SizeService {
                 .findAll();
     }
 
-    List<Size> getAllSizes(Pageable page) {
-        return sizeRepository
-                .findAll(page)
-                .getContent();
-    }
-
     Size createSize(Size newSize) {
         return sizeRepository
                 .save(newSize);
@@ -36,7 +30,6 @@ class SizeService {
                 .orElseThrow(() -> new ObjectNotFoundInDBException("Colour with id: " + id + " was not found."));
     }
 
-    // TODO dodac walidacje listy jesli nie znajdzie rozmiaru
     public List<Size> getSizesById(List<Long> idList) {
         return sizeRepository.findAllByIdIn(idList);
     }
@@ -50,10 +43,4 @@ class SizeService {
         toUpdate.createdAt();
         return toUpdate;
     }
-
-    void deleteSize(final Long id) {
-        sizeRepository.delete(getSizeById(id));
-    }
-
-
 }

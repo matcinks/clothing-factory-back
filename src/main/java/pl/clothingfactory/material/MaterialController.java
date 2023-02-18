@@ -21,16 +21,9 @@ class MaterialController {
         return materialService.getAllMaterials();
     }
 
-    @GetMapping
-    @ResponseBody
-    List<Material> getAllMaterials(Pageable page) {
-        return materialService.getAllMaterials(page);
-    }
-
     @GetMapping("/{id}")
     @ResponseBody
     Material getMaterialById(@PathVariable Long id) {
-        System.out.println("material one");
         return materialService.getMaterialById(id);
     }
 

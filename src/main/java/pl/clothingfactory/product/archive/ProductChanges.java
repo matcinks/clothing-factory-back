@@ -11,8 +11,6 @@ import java.util.Date;
 @Entity(name = "products_changes")
 class ProductChanges {
 
-    //TODO dopisać walidacje pól
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long changeId;
@@ -29,10 +27,6 @@ class ProductChanges {
     @NotNull
     private String valueAfter;
     private Date changeDate;
-    // TODO przypisac dane usera ktory dokonal zmiany
-    // TODO zmienić usera
-//    private String user;
-//    private User userId;
 
     public ProductChanges() {
     }

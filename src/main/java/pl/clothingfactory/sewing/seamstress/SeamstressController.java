@@ -21,12 +21,6 @@ class SeamstressController {
         return seamstressService.getAllSeamstresses();
     }
 
-    @GetMapping
-    @ResponseBody
-    List<Seamstress> getAllSeamstresses(Pageable page) {
-        return seamstressService.getAllSeamstresses(page);
-    }
-
     @GetMapping("/{id}")
     @ResponseBody
     Seamstress getSeamstressById(@PathVariable Long id) {
@@ -43,12 +37,6 @@ class SeamstressController {
     @ResponseBody
     void updateSeamstress(@PathVariable Long id, @Valid @RequestBody Seamstress updatedInfo){
         seamstressService.updateSeamstress(id, updatedInfo);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseBody
-    void deleteSeamstress(@PathVariable Long id){
-        seamstressService.deleteSeamstress(id);
     }
 
 }

@@ -23,19 +23,16 @@ import java.time.format.DateTimeParseException;
 @RestController
 public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
 
-    // Custom exception
     @ExceptionHandler(CustomException.class)
     public final ResponseEntity<CustomExceptionResponse> handleCustomExceptions(CustomException ex) {
         return ResponseEntity.status(ex.getHttpStatus()).body(new CustomExceptionResponse(ex));
     }
 
-    // SQL constraints exceptions
     @ExceptionHandler(JDBCException.class)
     public final ResponseEntity<CustomExceptionResponse> handleAllHttpExceptions(JDBCException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomExceptionResponse(ex));
     }
 
-    //Missing required data in request
     @ExceptionHandler(InvalidDataAccessApiUsageException.class)
     public final ResponseEntity<CustomExceptionResponse> handleAllHttpExceptions(InvalidDataAccessApiUsageException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomExceptionResponse(ex));
@@ -49,7 +46,6 @@ public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new CustomExceptionResponse(ce));
     }
 
-    //Incorrect date format
     @ExceptionHandler(DateTimeParseException.class)
     public final ResponseEntity<CustomExceptionResponse> handleDataTimeExceptions(DateTimeParseException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CustomExceptionResponse(ex));
@@ -72,7 +68,6 @@ public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ExpiredJwtException.class)
     public final ResponseEntity<CustomExceptionResponse> handleJwtException(ExpiredJwtException ex) {
-        System.out.println("wpadlo");
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new CustomExceptionResponse(ex));
     }
 

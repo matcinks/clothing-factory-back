@@ -28,17 +28,6 @@ class SewingScheduleService {
 
     private final MaterialService materialService;
 
-    List<SewingSchedule> getAllSewingEntries() {
-        return sewingScheduleRepository
-                .findAll();
-    }
-
-    List<SewingSchedule> getAllSewingEntries(Pageable page) {
-        return sewingScheduleRepository
-                .findAll(page)
-                .getContent();
-    }
-
     SewingSchedule createSewingEntry(SewingSchedule newSewingEntry) {
         newSewingEntry.setProduct(productService.getProductById(newSewingEntry.getProduct().getId()));
         newSewingEntry.setSize(sizeService.getSizeById(newSewingEntry.getSize().getId()));

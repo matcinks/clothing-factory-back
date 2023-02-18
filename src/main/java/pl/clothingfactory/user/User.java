@@ -1,6 +1,5 @@
 package pl.clothingfactory.user;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

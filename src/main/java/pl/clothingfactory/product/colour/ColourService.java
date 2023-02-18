@@ -20,12 +20,6 @@ class ColourService {
                 .findAll();
     }
 
-    List<Colour> getAllColours(Pageable page) {
-        return colourRepository
-                .findAll(page)
-                .getContent();
-    }
-
     Colour createColour(Colour newColour) {
         return colourRepository
                 .save(newColour);
@@ -34,7 +28,7 @@ class ColourService {
     public Colour getColourById(Long id) {
         return colourRepository
                 .findById(id)
-                .orElseThrow(() -> new ObjectNotFoundInDBException("Colour with id: " + id + " was not found."));
+                .orElseThrow(() -> new ObjectNotFoundInDBException("Nie znaleziono w bazie danych koloru o numerze id: " + id));
     }
 
     public List<Colour> getColoursById(List<Long> idList) {
@@ -51,9 +45,5 @@ class ColourService {
         toUpdate.setName(updatedInfo.getName());
         toUpdate.createdAt();
         return toUpdate;
-    }
-
-    void deleteColour(final Long id) {
-        colourRepository.delete(getColourById(id));
     }
 }

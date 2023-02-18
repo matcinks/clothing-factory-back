@@ -1,2 +1,0 @@
-insert into products (name, description, additional_information, category, material_usage, unit_usage, price)
-values ('Tina', 'Koszula z wiazaniem z przodu, rekaw 3/4', 'Guziki typu muszelka, rozmiar 16','KOSZULE', 2.5, 'm/2szt', 79);

@@ -21,12 +21,6 @@ class SizeController {
         return sizeService.getAllSizes();
     }
 
-    @GetMapping
-    @ResponseBody
-    List<Size> getAllSizes(Pageable page) {
-        return sizeService.getAllSizes(page);
-    }
-
     @GetMapping("/{id}")
     @ResponseBody
     Size getSizeById(@PathVariable Long id) {

@@ -15,7 +15,7 @@ import java.util.List;
 
 @Data
 @Entity
-@TypeName("Colour") // oznaczenie typu dla Javers
+@TypeName("Colour")
 @Table(name = "materials")
 public class Material {
 
@@ -36,7 +36,6 @@ public class Material {
     @NotNull
     private BigDecimal price;
 
-    // TODO This field is supposed to store unit type. It is String type, check it's behaviour and usefulness later
     private String priceUnit;
     @DiffIgnore
     private Date createdAt;

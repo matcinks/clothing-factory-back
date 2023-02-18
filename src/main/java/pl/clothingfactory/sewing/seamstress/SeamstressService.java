@@ -19,12 +19,6 @@ public class SeamstressService {
                 .findAll();
     }
 
-    List<Seamstress> getAllSeamstresses(Pageable page) {
-        return seamstressRepository
-                .findAll(page)
-                .getContent();
-    }
-
     Seamstress createSeamstress(Seamstress newSeamstress) {
         return seamstressRepository
                 .save(newSeamstress);
@@ -42,13 +36,6 @@ public class SeamstressService {
 
     Seamstress update(Seamstress toUpdate, final Seamstress updatedInfo) {
         toUpdate.setName(updatedInfo.getName());
-        // TODO consider adding date field to seamstress class
-//        toUpdate.createdAt();
         return toUpdate;
     }
-
-    void deleteSeamstress(final Long id) {
-        seamstressRepository.delete(getSeamstressById(id));
-    }
-
 }

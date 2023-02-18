@@ -21,12 +21,6 @@ class ColourController {
         return colourService.getAllColours();
     }
 
-    @GetMapping
-    @ResponseBody
-    List<Colour> getAllColours(Pageable page) {
-        return colourService.getAllColours(page);
-    }
-
     @GetMapping("/{id}")
     @ResponseBody
     Colour getColourById(@PathVariable Long id) {
@@ -43,12 +37,6 @@ class ColourController {
     @ResponseBody
     void updateColour(@PathVariable Long id, @Valid @RequestBody Colour updatedInfo){
         colourService.updateColour(id, updatedInfo);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseBody
-    void deleteColour(@PathVariable Long id){
-        colourService.deleteColour(id);
     }
 
 }
