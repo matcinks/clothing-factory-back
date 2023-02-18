@@ -2,7 +2,8 @@ drop table if exists cutting_schedules;
 
 create table cutting_schedules
 (
-    id            bigint primary key auto_increment,
+--     id            bigint primary key auto_increment,
+    id            bigserial primary key,
     product_id    bigint             not null,
     colour_id     bigint             not null,
     size_id       bigint             not null,
