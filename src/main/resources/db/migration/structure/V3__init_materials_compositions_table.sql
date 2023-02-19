@@ -1,6 +1,5 @@
-drop table if exists materials_compositions;
 
-create table materials_compositions
+create table if not exists materials_compositions
 (
     material_id    bigint not null,
     composition_id bigint not null

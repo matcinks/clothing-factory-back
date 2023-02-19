@@ -7,7 +7,7 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQL81Dialect
   datasource:
-    url: jdbc:postgresql://localhost:5434/clothing_factory
+    url: jdbc:postgresql://localhost:5434/clothing_factory_thesis
     username: mat
     password: QaWsEd123
   flyway:

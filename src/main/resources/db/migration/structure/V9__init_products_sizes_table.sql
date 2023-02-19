@@ -1,6 +1,5 @@
-drop table if exists products_sizes;
 
-create table products_sizes
+create table if not exists products_sizes
 (
     product_id bigint not null,
     size_id    bigint not null

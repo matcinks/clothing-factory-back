@@ -1,8 +1,6 @@
-drop table if exists products;
 
-create table products
+create table if not exists products
 (
---     id                     bigint primary key auto_increment,
     id                     bigserial primary key,
     name                   varchar(255) not null,
     description            varchar(255) not null,

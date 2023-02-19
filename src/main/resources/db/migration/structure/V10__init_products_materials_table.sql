@@ -1,6 +1,5 @@
-drop table if exists products_materials;
 
-create table products_materials
+create table if not exists products_materials
 (
     product_id bigint not null,
     material_id    bigint not null
