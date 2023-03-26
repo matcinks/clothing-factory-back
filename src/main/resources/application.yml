@@ -1,8 +1,8 @@
 spring:
-  h2:
-    console:
-      enabled: true
-      path: '/console'
+#  h2:
+#    console:
+#      enabled: true
+#      path: '/console'
   jpa:
     hibernate:
       ddl-auto: update
@@ -10,6 +10,11 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQL81Dialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/clothing-factory
+    username: matcinks
+    password: 0H58uT9gK+B";1-s
+#    password: test123
   #      ddl-auto: validate
 #      format_sql: true
 #    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
@@ -24,18 +29,17 @@ spring:
 #  spring.jpa.hibernate.naming.implicit-strategy = org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
 #  spring.jpa.properties.hibernate.format_sql=true
 
-
 #
 #  spring.jpa.hibernate.ddl-auto=update
 #  spring.jpa.show-sql=true
 #  spring.jpa.properties.hibernate.format_sql=true
 #  spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQL81Dialect
 
-  datasource:
+#  datasource:
 #    url: jdbc:h2:mem:testdb # utworzenie bazy danych H2 w pamieci z adresem testdb
-    url: jdbc:postgresql://localhost:5434/clothing_factory
-    username: mat
-    password: QaWsEd123
+#    url: jdbc:postgresql://localhost:5434/clothing_factory
+#    username: mat
+#    password: QaWsEd123
 
   flyway:
     locations: classpath:db/migration/structure, classpath:db/migration/content # wskazanie katalogow z migracjami
