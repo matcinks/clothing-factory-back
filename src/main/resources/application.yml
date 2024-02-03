@@ -1,19 +1,53 @@
+server:
+  port: 9000
+
 spring:
-#  h2:
-#    console:
-#      enabled: true
-#      path: '/console'
+
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration, org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+
+  h2:
+    console:
+      enabled: true
+      path: '/console'
+      settings:
+        web-allow-others: true
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQL81Dialect
-  datasource:
-    url: jdbc:postgresql://localhost:5432/clothing-factory
-    username: matcinks
-    password: 0H58uT9gK+B";1-s
+
+#  datasource:
+#    url do bazy danych umieszczonej na chmurze google, uruchomienie aplikacji lokalnie
+#    url: jdbc:postgresql:///clothing-factory?cloudSqlInstance=clothing-factory-381413:europe-central2:postgresql&socketFactory=com.google.cloud.sql.postgres.SocketFactory
+#    url: jdbc:postgresql://clothing.postgres.database.azure.com:5432/clothing-factory?sslmode=require
+#    username: spring_app
+#    password: 8YE5Ka_s17aSV#(*A
+#    azure:
+#      passwordless-enabled: true
+  #    password: test123
+#    driver-class-name: org.postgresql.Driver
+#    hikari:
+#      maximum-pool-size: 10
+
+#  sql:
+#    init:
+#      mode: always
+
+  #        database=postgres
+#        spring.datasource.url=${POSTGRES_URL:jdbc:postgresql://localhost/petclinic}
+#        spring.datasource.username=${POSTGRES_USER:petclinic}
+#        spring.datasource.password=${POSTGRES_PASS:petclinic}
+#        # SQL is written to be idempotent so this is safe
+#        spring.sql.init.mode=always
+
+#  datasource:
+#    url: 34.116.131.85
+#    url: jdbc:postgresql://localhost:5432/clothing-factory
+#    username: matcinks
+#    password: 0H58uT9gK+B";1-s
 #    password: test123
   #      ddl-auto: validate
 #      format_sql: true
@@ -35,11 +69,32 @@ spring:
 #  spring.jpa.properties.hibernate.format_sql=true
 #  spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQL81Dialect
 
-#  datasource:
+  datasource:
 #    url: jdbc:h2:mem:testdb # utworzenie bazy danych H2 w pamieci z adresem testdb
-#    url: jdbc:postgresql://localhost:5434/clothing_factory
-#    username: mat
-#    password: QaWsEd123
+    url: jdbc:postgresql://localhost:5434/clothing_factory
+    username: mat
+    password: QaWsEd123
+
+##############################################
+#  spring.cloud.gcp.projectId=${PROJECT}
+#  spring.cloud.gcp.sql.instanceName={$ROOT}-p
+#
+#  spring.cloud.gcp.sql.databaseName=${DBNAME}
+#  spring.cloud.gcp.sql.userName=${DBUSER}
+#  spring.cloud.gcp.sql.password=${DBPASS}
+#
+#  spring.cloud.gcp.sql.jdbcDriver=org.postgresql.Driver
+#  spring.cloud.gcp.sql.jdbcUrl=jdbc:postgresql://google/${DBNAME}?socketFactory=com.google.cloud.sql.postgres.SocketFactory&socketFactoryArg=${INSTANCE}-p
+##############################################
+
+#  cloud:
+#    gcp:
+#      sql:
+#        instance-connection-name: clothing-factory-381413:europe-central2:postgresql
+#        database-name: clothing-factory
+#
+#      logging:
+#        enabled: true
 
   flyway:
     locations: classpath:db/migration/structure, classpath:db/migration/content # wskazanie katalogow z migracjami
